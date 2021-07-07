@@ -6,3 +6,5 @@
 [node name="Slicer" type="Node"]
 script = ExtResource( 1 )
 input_image = ExtResource( 2 )
+maintain_sides_h = true
+maintain_sides_v = true
