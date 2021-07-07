@@ -8,9 +8,20 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Slicer",
+"language": "GDScript",
+"path": "res://Scenes/Slicer/Slicer.gd"
+} ]
+_global_script_class_icons={
+"Slicer": ""
+}
+
 [application]
 
 config/name="WFC-Generator"
+run/main_scene="res://Scenes/App/App.tscn"
 config/icon="res://icon.png"
 
 [physics]
