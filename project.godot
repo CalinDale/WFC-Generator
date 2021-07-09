@@ -10,12 +10,12 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "Slicer",
+"class": "ImageReader",
 "language": "GDScript",
-"path": "res://Scenes/Slicer/Slicer.gd"
+"path": "res://Scenes/ImageReader/ImageReader.gd"
 } ]
 _global_script_class_icons={
-"Slicer": ""
+"ImageReader": ""
 }
 
 [application]
