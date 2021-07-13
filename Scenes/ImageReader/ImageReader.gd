@@ -2,6 +2,8 @@ class_name ImageReader
 extends Node
 ## Slices a sample image into a collection of patterns.
 
+signal sample_read(sample_map, size, tiles)
+
 const BLANK_PIXEL_ID := -1
 
 export var input_image : Image
@@ -14,9 +16,17 @@ var _tiles := {}
 
 
 func _ready() -> void:
-	_convert_to_map()
+	_read_sample()
+
+
+func _read_sample() -> void:
+	var tiles := []
+	var wrap_size := Vector2(pattern_size.x - 1,pattern_size.y - 1)
+	var full_size := Vector2(_sample_size.x + wrap_size.x, _sample_size.y + wrap_size.y)
+	var map := _convert_to_map()
 	_add_wrapped_tiles()
 	_print_map()
+	emit_signal("sample_read", _sample_map, full_size, tiles)
 
 
 func _print_map() -> void:
@@ -28,7 +38,8 @@ func _print_map() -> void:
 		print(line)
 
 
-func _convert_to_map() -> void:
+func _convert_to_map() -> Dictionary:
+	var map: Dictionary
 	var new_id := 0
 	_sample_size = input_image.get_size()
 	_sample_image = input_image.duplicate()
@@ -44,7 +55,7 @@ func _convert_to_map() -> void:
 				tile_id = new_id
 				new_id += 1
 				_tiles[pixel_color] = tile_id
-			_sample_map[pixel_coords] = tile_id
+			map[pixel_coords] = tile_id
 
 
 func _add_wrapped_tiles() -> void:

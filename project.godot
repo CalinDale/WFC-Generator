@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "ImageReader",
 "language": "GDScript",
 "path": "res://Scenes/ImageReader/ImageReader.gd"
+}, {
+"base": "HBoxContainer",
+"class": "MapDisplay",
+"language": "GDScript",
+"path": "res://Scenes/MapDisplay/MapDisplay.gd"
 } ]
 _global_script_class_icons={
-"ImageReader": ""
+"ImageReader": "",
+"MapDisplay": ""
 }
 
 [application]
