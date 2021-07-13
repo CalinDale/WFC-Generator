@@ -5,9 +5,7 @@ extends Node
 const BLANK_PIXEL_ID := -1
 
 export var input_image : Image
-export var pattern_size : int
-export var maintain_sides_h := false
-export var maintain_sides_v := false
+export var pattern_size : Vector2
 
 var _sample_image : Image
 var _sample_map := {}
@@ -17,16 +15,16 @@ var _tiles := {}
 
 func _ready() -> void:
 	_convert_to_map()
-	_add_side_tiles()
+	_add_wrapped_tiles()
 	_print_map()
 
 
 func _print_map() -> void:
-	for x in range(-1, _sample_size.x+1):
+	for x in range(0, _sample_size.x+pattern_size.x-1):
 		var line := ""
-		for y in range(-1, _sample_size.y+1):
+		for y in range(0, _sample_size.y+pattern_size.y-1):
 			var coords = Vector2(x,y)
-			line += str(_sample_map.get(coords, false))
+			line += str(_sample_map.get(coords, 8))
 		print(line)
 
 
@@ -49,35 +47,18 @@ func _convert_to_map() -> void:
 			_sample_map[pixel_coords] = tile_id
 
 
-func _add_side_tiles() -> void:
-		_tiles[Color.transparent] = BLANK_PIXEL_ID
-		
-		# Need to add more tiles to the sides if the pattern_size is larger.
-		# Still need to figure out how odd numbered pattern sizes will work.
-		
-		if maintain_sides_h or maintain_sides_v:
-			_sample_map[Vector2(-1, -1)] = BLANK_PIXEL_ID
-			_sample_map[Vector2(_sample_size.x, _sample_size.y)] = BLANK_PIXEL_ID
-			_sample_map[Vector2(-1, _sample_size.y)] = BLANK_PIXEL_ID
-			_sample_map[Vector2(_sample_size.x, -1)] = BLANK_PIXEL_ID
-		else:
-			_sample_map[Vector2(-1, -1)] = _sample_map[Vector2(_sample_size.x-1, _sample_size.y-1)]
-			_sample_map[Vector2(_sample_size.x, _sample_size.y)] = _sample_map[Vector2(0,0)]
-			_sample_map[Vector2(-1, _sample_size.y)] = _sample_map[Vector2(_sample_size.x-1, 0)]
-			_sample_map[Vector2(_sample_size.x, -1)] = _sample_map[Vector2(0, _sample_size.y-1)]
-		if maintain_sides_h:
-			for y in range(0, _sample_size.y):
-				_sample_map[Vector2(-1, y)] = BLANK_PIXEL_ID
-				_sample_map[Vector2(_sample_size.x, y)] = BLANK_PIXEL_ID
-		else:
-			for y in range(0, _sample_size.y):
-				_sample_map[Vector2(-1, y)] = _sample_map[Vector2(_sample_size.x-1, y)]
-				_sample_map[Vector2(_sample_size.x, y)] = _sample_map[Vector2(0, y)]
-		if maintain_sides_v:
-			for x in range(0, _sample_size.x):
-				_sample_map[Vector2(x, -1)] = BLANK_PIXEL_ID
-				_sample_map[Vector2(x, _sample_size.y)] = BLANK_PIXEL_ID
-		else:
-			for x in range(0, _sample_size.x):
-				_sample_map[Vector2(x, -1)] = _sample_map[Vector2(x, _sample_size.y-1)]
-				_sample_map[Vector2(x, _sample_size.y)] = _sample_map[Vector2(x, 0)]
+func _add_wrapped_tiles() -> void:
+	for x_offset in range(0, pattern_size.x-1):
+		for y in range (0, _sample_size.y):
+			var destination := Vector2(_sample_size.x + x_offset, y)
+			var origin := Vector2(0 + x_offset, y)
+			_sample_map[destination] = _sample_map[origin]
+		for y_offset in range (0, pattern_size.y-1):
+			var destination := Vector2(_sample_size.x + x_offset, _sample_size.y + y_offset)
+			var origin := Vector2(0 + x_offset, 0 + y_offset)
+			_sample_map[destination] = _sample_map[origin]
+	for y_offset in range(0, pattern_size.y-1):
+		for x in range (0, _sample_size.x):
+			var destination := Vector2(x, _sample_size.y + y_offset)
+			var origin := Vector2(x, 0 + y_offset)
+			_sample_map[destination] = _sample_map[origin]

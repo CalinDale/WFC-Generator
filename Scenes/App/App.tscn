@@ -5,4 +5,4 @@
 [node name="App" type="Node2D"]
 
 [node name="ImageReader" parent="." instance=ExtResource( 1 )]
-pattern_size = 3
+pattern_size = Vector2( 3, 3 )
