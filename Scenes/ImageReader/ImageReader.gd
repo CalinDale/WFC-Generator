@@ -2,7 +2,7 @@ class_name ImageReader
 extends Node
 ## Slices a sample image into a collection of patterns.
 
-signal sample_read(sample_map, size, tiles)
+signal sample_read(map)
 
 export var sample_image : Image
 export var pattern_size : Vector2
