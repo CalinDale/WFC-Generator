@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "MapDisplay",
 "language": "GDScript",
 "path": "res://Scenes/MapDisplay/MapDisplay.gd"
+}, {
+"base": "Resource",
+"class": "WFCMap",
+"language": "GDScript",
+"path": "res://Resources/WFCMap/WFCMap.gd"
 } ]
 _global_script_class_icons={
 "ImageReader": "",
-"MapDisplay": ""
+"MapDisplay": "",
+"WFCMap": ""
 }
 
 [application]
