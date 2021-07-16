@@ -9,15 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Control",
+"class": "App",
+"language": "GDScript",
+"path": "res://Scenes/App/App.gd"
+}, {
 "base": "Node",
 "class": "ImageReader",
 "language": "GDScript",
-"path": "res://Scenes/ImageReader/ImageReader.gd"
+"path": "res://Scenes/WFCGenerator/ImageReader/ImageReader.gd"
 }, {
 "base": "HBoxContainer",
 "class": "MapDisplay",
 "language": "GDScript",
-"path": "res://Scenes/MapDisplay/MapDisplay.gd"
+"path": "res://Scenes/Interface/MapDisplay/MapDisplay.gd"
+}, {
+"base": "Node",
+"class": "Slicer",
+"language": "GDScript",
+"path": "res://Scenes/WFCGenerator/Slicer/Slicer.gd"
+}, {
+"base": "Node",
+"class": "WFCGenerator",
+"language": "GDScript",
+"path": "res://Scenes/WFCGenerator/WFCGenerator.gd"
 }, {
 "base": "Resource",
 "class": "WFCMap",
@@ -25,8 +40,11 @@ _global_script_classes=[ {
 "path": "res://Resources/WFCMap/WFCMap.gd"
 } ]
 _global_script_class_icons={
+"App": "",
 "ImageReader": "",
 "MapDisplay": "",
+"Slicer": "",
+"WFCGenerator": "",
 "WFCMap": ""
 }
 

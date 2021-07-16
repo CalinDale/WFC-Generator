@@ -1,8 +1,30 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scenes/ImageReader/ImageReader.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/WFCGenerator/WFCGenerator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Interface/MapDisplay/MapDisplay.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/App/App.gd" type="Script" id=3]
+[ext_resource path="res://Samples/sample1.png" type="Image" id=4]
 
-[node name="App" type="Node2D"]
+[node name="App" type="Control"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="ImageReader" parent="." instance=ExtResource( 1 )]
-pattern_size = Vector2( 3, 3 )
+[node name="WFCGenerator" parent="." instance=ExtResource( 1 )]
+sample_image = ExtResource( 4 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 476.0
+margin_bottom = 334.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MapDisplay" parent="PanelContainer" instance=ExtResource( 2 )]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 469.0
+margin_bottom = 327.0
+
+[connection signal="sample_read" from="WFCGenerator" to="." method="_on_WFCGenerator_sample_read"]
