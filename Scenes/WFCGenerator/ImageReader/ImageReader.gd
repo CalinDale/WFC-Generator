@@ -8,7 +8,7 @@ func convert_to_map(image: Image) -> WFCMap:
 	var map := WFCMap.new()
 	map.size = image.get_size()
 	
-	var color_ids : Dictionary
+	var color_ids := {}
 	color_ids[Color.transparent] = 0
 	map.tiles[0] = Color.transparent
 	

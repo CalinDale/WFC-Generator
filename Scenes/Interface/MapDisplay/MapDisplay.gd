@@ -5,7 +5,7 @@ extends HBoxContainer
 # We should refactor this to just build an imagetexture and display it in a texture rect
 
 func draw_map(map: WFCMap) -> void:
-	for x in range(0, map.size.x):
+	for x in map.size.x:
 		var column = VBoxContainer.new()
 		column.size_flags_horizontal = SIZE_EXPAND_FILL
 		column.size_flags_vertical = SIZE_EXPAND_FILL
@@ -13,7 +13,7 @@ func draw_map(map: WFCMap) -> void:
 		column.set("custom_constants/separation", 0)
 		add_child(column)
 		
-		for y in range(0, map.size.y):
+		for y in map.size.y:
 			var coords = Vector2(x,y)
 			var tile_id = map.data[coords]
 			var tile_color = map.tiles[tile_id]

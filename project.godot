@@ -24,10 +24,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Interface/MapDisplay/MapDisplay.gd"
 }, {
-"base": "Node",
-"class": "Slicer",
+"base": "Resource",
+"class": "Pattern",
 "language": "GDScript",
-"path": "res://Scenes/WFCGenerator/Slicer/Slicer.gd"
+"path": "res://Resources/Pattern/Pattern.gd"
+}, {
+"base": "Node",
+"class": "PatternSlicer",
+"language": "GDScript",
+"path": "res://Scenes/WFCGenerator/PatternSlicer/PatternSlicer.gd"
 }, {
 "base": "Node",
 "class": "WFCGenerator",
@@ -43,7 +48,8 @@ _global_script_class_icons={
 "App": "",
 "ImageReader": "",
 "MapDisplay": "",
-"Slicer": "",
+"Pattern": "",
+"PatternSlicer": "",
 "WFCGenerator": "",
 "WFCMap": ""
 }
