@@ -17,8 +17,7 @@ func generate_patterns(map: WFCMap, pattern_size: Vector2) -> void:
 			var map_coord = Vector2(map_x, map_y)
 			var pattern := Pattern.new()
 			pattern._init({}, pattern_size, rotate, mirror_h, mirror_v)
-			pattern.data = _slice_tiles(slicable_map, map_coord, pattern_size)
-			print(pattern)
+			pattern._data = _slice_tiles(slicable_map, map_coord, pattern_size)
 
 
 func _slice_tiles(map: Dictionary, map_coord: Vector2, pattern_size: Vector2) -> Dictionary:
