@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/oneColour.png-7f3925337df8bf8fad176ff9305e02d2.image"
+
+[deps]
+
+source_file="res://Samples/oneColour.png"
+dest_files=[ "res://.import/oneColour.png-7f3925337df8bf8fad176ff9305e02d2.image" ]
+
+[params]
+

@@ -18,16 +18,8 @@ func generate_patterns(map: WFCMap, pattern_size: Vector2) -> void:
 			var pattern := Pattern.new()
 			pattern._init({}, pattern_size, rotate, mirror_h, mirror_v)
 			pattern._data = _slice_tiles(slicable_map, map_coord, pattern_size)
-
-
-func _slice_tiles(map: Dictionary, map_coord: Vector2, pattern_size: Vector2) -> Dictionary:
-	var tiles := {}
-	for x in pattern_size.x:
-		for y in pattern_size.y:
-			var pattern_tile_coord := Vector2(x, y)
-			var map_tile_coord := map_coord + pattern_tile_coord
-			tiles[pattern_tile_coord] = map[map_tile_coord]
-	return tiles
+			patterns = _add_pattern(pattern, patterns)
+	print(patterns)
 
 
 func _add_wrapped_tiles(map: WFCMap, pattern_size: Vector2) -> Dictionary:
@@ -51,3 +43,26 @@ func _add_wrapped_tiles(map: WFCMap, pattern_size: Vector2) -> Dictionary:
 			slicable_map.data[destination] = slicable_map.data[origin]
 			
 	return slicable_map.data
+
+
+func _slice_tiles(map: Dictionary, map_coord: Vector2, pattern_size: Vector2) -> Dictionary:
+	var tiles := {}
+	for x in pattern_size.x:
+		for y in pattern_size.y:
+			var pattern_tile_coord := Vector2(x, y)
+			var map_tile_coord := map_coord + pattern_tile_coord
+			tiles[pattern_tile_coord] = map[map_tile_coord]
+	return tiles
+
+
+func _add_pattern(new_pattern: Pattern, patterns: Dictionary) -> Dictionary:
+	var match_found := false
+	for variation_string in new_pattern.variation_strings:
+		if not match_found:
+			if variation_string in patterns:
+				match_found = true
+				if prefer_common:
+					patterns[variation_string].commonality += 1
+	if not match_found:
+		patterns[new_pattern.string] = new_pattern
+	return patterns

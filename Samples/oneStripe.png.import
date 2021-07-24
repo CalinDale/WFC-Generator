@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/oneStripe.png-dc6c453336eaa6e45b02030c98430ed6.image"
+
+[deps]
+
+source_file="res://Samples/oneStripe.png"
+dest_files=[ "res://.import/oneStripe.png-dc6c453336eaa6e45b02030c98430ed6.image" ]
+
+[params]
+

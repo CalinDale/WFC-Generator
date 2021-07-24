@@ -10,8 +10,8 @@ export var mirrorable_v: bool
 export var _data: Dictionary setget set_data
 export var _size: Vector2 setget set_size
 
-var _variation_strings := []
-var _string := ""
+var variation_strings := []
+var string := ""
 var _rotated_size : Vector2
 var _center : Vector2
 var _rotated_center : Vector2
@@ -27,24 +27,24 @@ func _init(p_data := {}, p_size := Vector2.ZERO, p_rotatable := true, p_mirrorab
 
 
 func _to_string() -> String:
-	return _string
+	return string
 
 
 func set_data(p_data: Dictionary) -> void:
 	_data = p_data
-	if not _data.empty:
-		_string = _stringify(p_data, _size)
-		_variation_strings = _generate_variation_strings(p_data)
+	if not _data.empty():
+		string = _stringify(p_data, _size)
+		variation_strings = _generate_variation_strings(p_data)
 	else:
-		_string = "empty pattern"
-		_variation_strings = []
+		string = "empty pattern"
+		variation_strings = []
 
 
 func set_size(p_size: Vector2) -> void:
 	_size = p_size
 	_rotated_size = Vector2(p_size.y, p_size.x)
-	_center = Vector2(min(0, (p_size.x - 1) / 2), min(0, (p_size.y - 1) / 2))
-	_rotated_center = Vector2(min(0, (_rotated_size.x - 1) / 2), min(0, (_rotated_size.y - 1) / 2))
+	_center = Vector2(max(0, (p_size.x - 1) / 2), max(0, (p_size.y - 1) / 2))
+	_rotated_center = Vector2(max(0, (_rotated_size.x - 1) / 2), max(0, (_rotated_size.y - 1) / 2))
 
 
 func _stringify(p_data: Dictionary, p_size: Vector2) -> String:
@@ -63,7 +63,7 @@ func _stringify(p_data: Dictionary, p_size: Vector2) -> String:
 # And mirroring both ways is the same as rotating 180
 # So if rotation and mirroring either way is allowed, we only need to cover the rotations of one mirror to cover them both.
 func _generate_variation_strings(p_data: Dictionary) -> Array:
-	var variation_strings := [_string]
+	var variation_strings := [string]
 	
 	if rotatable:
 		variation_strings.append(_stringify(_rotate(p_data, _rotated_size, _rotated_center, 90), _rotated_size))
