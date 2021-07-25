@@ -63,35 +63,35 @@ func _stringify(p_data: Dictionary, p_size: Vector2) -> String:
 # And mirroring both ways is the same as rotating 180
 # So if rotation and mirroring either way is allowed, we only need to cover the rotations of one mirror to cover them both.
 func _generate_variation_strings(p_data: Dictionary) -> Array:
-	var variation_strings := [string]
+	var v_strings := [string]
 	
 	if rotatable:
-		variation_strings.append(_stringify(_rotate(p_data, _rotated_size, _rotated_center, 90), _rotated_size))
-		variation_strings.append(_stringify(_rotate(p_data, _size, _center, 180), _size))
-		variation_strings.append(_stringify(_rotate(p_data, _rotated_size, _rotated_center, 270), _rotated_size))
+		v_strings.append(_stringify(_rotate(p_data, _rotated_size, _rotated_center, 90), _rotated_size))
+		v_strings.append(_stringify(_rotate(p_data, _size, _center, 180), _size))
+		v_strings.append(_stringify(_rotate(p_data, _rotated_size, _rotated_center, 270), _rotated_size))
 		
 		if mirrorable_h or mirrorable_v:
 			var mirrored_data := _mirror_h(p_data, _size, _center)
-			variation_strings.append(_stringify(mirrored_data, _size))
+			v_strings.append(_stringify(mirrored_data, _size))
 			
-			variation_strings.append(_stringify(_rotate(mirrored_data, _rotated_size, _rotated_center, 90), _rotated_size))
-			variation_strings.append(_stringify(_rotate(mirrored_data, _size, _center, 180), _size))
-			variation_strings.append(_stringify(_rotate(mirrored_data, _rotated_size, _rotated_center, 270), _rotated_size))
+			v_strings.append(_stringify(_rotate(mirrored_data, _rotated_size, _rotated_center, 90), _rotated_size))
+			v_strings.append(_stringify(_rotate(mirrored_data, _size, _center, 180), _size))
+			v_strings.append(_stringify(_rotate(mirrored_data, _rotated_size, _rotated_center, 270), _rotated_size))
 	
 	else:
 		if mirrorable_h:
 			var mirrored_h_data := _mirror_h(p_data, _size, _center)
-			variation_strings.append(_stringify(mirrored_h_data, _size))
+			v_strings.append(_stringify(mirrored_h_data, _size))
 			
 			if mirrorable_v:
 				var mirrored_hv_data := _mirror_v(mirrored_h_data, _size, _center)
-				variation_strings.append(_stringify(mirrored_hv_data, _size))
+				v_strings.append(_stringify(mirrored_hv_data, _size))
 		
 		if mirrorable_v:
 			var mirrored_v_data := _mirror_v(p_data, _size, _center)
-			variation_strings.append(_stringify(mirrored_v_data, _size))
+			v_strings.append(_stringify(mirrored_v_data, _size))
 	
-	return variation_strings
+	return v_strings
 
 
 func _rotate(p_data: Dictionary, p_size: Vector2, p_center: Vector2, degrees: float) -> Dictionary:

@@ -2,12 +2,14 @@
 class_name PatternSlicer
 extends Node
 
-export var rotate := true
-export var mirror_h := true
-export var mirror_v := true
+
+export var rotate := false
+export var mirror_h := false
+export var mirror_v := false
 export var prefer_common := true
 
-func generate_patterns(map: WFCMap, pattern_size: Vector2) -> void:
+
+func generate_patterns(map: WFCMap, pattern_size: Vector2) -> Dictionary:
 	var slicable_map := _add_wrapped_tiles(map, pattern_size)
 
 	var patterns := {}
@@ -19,7 +21,7 @@ func generate_patterns(map: WFCMap, pattern_size: Vector2) -> void:
 			pattern._init({}, pattern_size, rotate, mirror_h, mirror_v)
 			pattern._data = _slice_tiles(slicable_map, map_coord, pattern_size)
 			patterns = _add_pattern(pattern, patterns)
-	print(patterns)
+	return patterns
 
 
 func _add_wrapped_tiles(map: WFCMap, pattern_size: Vector2) -> Dictionary:
