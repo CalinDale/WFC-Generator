@@ -13,6 +13,7 @@ __meta__ = {
 }
 sample_display_path = NodePath("PanelContainer/HBoxContainer/MapDisplay")
 pattern_display_list_path = NodePath("PanelContainer/HBoxContainer/PatternDisplayList")
+full_pattern_display_list_path = NodePath("PanelContainer/HBoxContainer/FullPatternDisplayList")
 
 [node name="WFCGenerator" parent="." instance=ExtResource( 1 )]
 sample_image = ExtResource( 4 )
@@ -31,12 +32,22 @@ margin_right = 1016.0
 margin_bottom = 592.0
 
 [node name="MapDisplay" parent="PanelContainer/HBoxContainer" instance=ExtResource( 2 )]
-margin_right = 502.0
+margin_right = 771.0
 margin_bottom = 585.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PatternDisplayList" parent="PanelContainer/HBoxContainer" instance=ExtResource( 5 )]
+margin_left = 775.0
+margin_right = 890.0
+rect_min_size = Vector2( 115, 0 )
+size_flags_horizontal = 0
 
+[node name="FullPatternDisplayList" parent="PanelContainer/HBoxContainer" instance=ExtResource( 5 )]
+margin_left = 894.0
+rect_min_size = Vector2( 115, 0 )
+size_flags_horizontal = 0
+
+[connection signal="full_pattern_list_built" from="WFCGenerator" to="." method="_on_WFCGenerator_full_pattern_list_built"]
 [connection signal="patterns_sliced" from="WFCGenerator" to="." method="_on_WFCGenerator_patterns_sliced"]
 [connection signal="sample_read" from="WFCGenerator" to="." method="_on_WFCGenerator_sample_read"]

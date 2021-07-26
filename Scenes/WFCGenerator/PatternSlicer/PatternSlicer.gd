@@ -1,26 +1,24 @@
-## Slices patterns from a WFCMap
+## Slices unqiue patterns from a WFCMap
 class_name PatternSlicer
 extends Node
 
+export var should_prefer_common := true
+export var can_rotate := true
+export var can_mirror_h := true
+export var can_mirror_v := true
 
-export var rotate := false
-export var mirror_h := false
-export var mirror_v := false
-export var prefer_common := true
-
-
-func generate_patterns(map: WFCMap, pattern_size: Vector2) -> Dictionary:
-	var slicable_map := _add_wrapped_tiles(map, pattern_size)
+func generate_patterns(sample_map: WFCMap, pattern_size: Vector2) -> Dictionary:
+	var slicable_map := _add_wrapped_tiles(sample_map, pattern_size)
 
 	var patterns := {}
 	
-	for map_x in map.size.x:
-		for map_y in map.size.y:
-			var map_coord = Vector2(map_x, map_y)
+	for map_x in sample_map.size.x:
+		for map_y in sample_map.size.y:
+			var sample_coord = Vector2(map_x, map_y)
+			var pattern_map := _slice_pattern(slicable_map, sample_coord, pattern_size)
 			var pattern := Pattern.new()
-			pattern._init({}, pattern_size, rotate, mirror_h, mirror_v)
-			pattern._data = _slice_tiles(slicable_map, map_coord, pattern_size)
-			patterns = _add_pattern(pattern, patterns)
+			pattern._init(pattern_map, pattern_size, 1, can_rotate, can_mirror_h, can_mirror_v)
+			patterns = _add_if_new(pattern, patterns)
 	return patterns
 
 
@@ -47,24 +45,21 @@ func _add_wrapped_tiles(map: WFCMap, pattern_size: Vector2) -> Dictionary:
 	return slicable_map.data
 
 
-func _slice_tiles(map: Dictionary, map_coord: Vector2, pattern_size: Vector2) -> Dictionary:
-	var tiles := {}
+func _slice_pattern(map: Dictionary, map_coord: Vector2, pattern_size: Vector2) -> Dictionary:
+	var pattern_map := {}
 	for x in pattern_size.x:
 		for y in pattern_size.y:
 			var pattern_tile_coord := Vector2(x, y)
 			var map_tile_coord := map_coord + pattern_tile_coord
-			tiles[pattern_tile_coord] = map[map_tile_coord]
-	return tiles
+			pattern_map[pattern_tile_coord] = map[map_tile_coord]
+	return pattern_map
 
 
-func _add_pattern(new_pattern: Pattern, patterns: Dictionary) -> Dictionary:
-	var match_found := false
-	for variation_string in new_pattern.variation_strings:
-		if not match_found:
-			if variation_string in patterns:
-				match_found = true
-				if prefer_common:
-					patterns[variation_string].commonality += 1
-	if not match_found:
-		patterns[new_pattern.string] = new_pattern
+func _add_if_new(new_pattern: Pattern, patterns: Dictionary) -> Dictionary:
+	var pattern_string := new_pattern.to_string()
+	if pattern_string in patterns:
+		if should_prefer_common:
+			patterns[pattern_string].commonality += 1
+	else:
+		patterns[pattern_string] = new_pattern
 	return patterns

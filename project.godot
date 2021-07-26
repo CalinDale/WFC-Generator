@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/Interface/PatternDisplayList/PatternDisplayList.gd"
 }, {
 "base": "Node",
+"class": "PatternListBuilder",
+"language": "GDScript",
+"path": "res://Scenes/WFCGenerator/PatternListBuilder/PatternListBuilder.gd"
+}, {
+"base": "Node",
 "class": "PatternSlicer",
 "language": "GDScript",
 "path": "res://Scenes/WFCGenerator/PatternSlicer/PatternSlicer.gd"
@@ -55,6 +60,7 @@ _global_script_class_icons={
 "MapDisplay": "",
 "Pattern": "",
 "PatternDisplayList": "",
+"PatternListBuilder": "",
 "PatternSlicer": "",
 "WFCGenerator": "",
 "WFCMap": ""

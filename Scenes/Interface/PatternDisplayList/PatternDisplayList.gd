@@ -28,5 +28,5 @@ func build_list(patterns: Dictionary) -> void:
 		map_display.set("custom_constants/separation", 0)
 		
 		vbox_container.add_child(map_display)
-		map_display.draw_map(pattern._data, pattern._size)
+		map_display.draw_map(pattern.data, pattern.size)
 		pattern_count += 1
